@@ -42,17 +42,31 @@ export default function Todos() {
 
 
   function addTask(task, assignee){
-    setTodos([...todos, {
-      id: Math.random(),
-      task: task,
-      assignee: assignee,
-      completed: false
-    }])
-    post({
-      id: Math.random(),
-      task: task,
-      assignee: assignee,
-      completed: false
+    // setTodos([...todos, {
+    //   id: Math.random(),
+    //   task: task,
+    //   assignee: assignee,
+    //   completed: false
+    // }])
+    // post({
+    //   id: Math.random(),
+    //   task: task,
+    //   assignee: assignee,
+    //   completed: false
+    // })
+    fetch('/todos',{
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: Math.random(),
+        task: task,
+        assignee: assignee,
+        completed: false
+      })
+    }).then(res => res.json()).then(res => {
+      setTodos(res)
     })
   }
   function hideTodos(){
@@ -62,14 +76,13 @@ export default function Todos() {
   function completeTodo(id){
     const newTodos = todos.map(todo => {
       if(todo.id != id)return todo
-      return fetch(`/todos/${id}`, { method: 'PUT' })
-      .then(res => res.json())
-      .then(updatedTodo => ({
-        ...updatedTodo,
-        completed: !updatedTodo.completed
-      }))
+      put(`/todos/${todo.id}`)
+      return {
+        ...todo,
+        completed: !todo.completed
+      }
     })
-    Promise.all(newTodos).then(setTodos);
+    setTodos(newTodos)
   }
 
   function deleteTodo(id){
