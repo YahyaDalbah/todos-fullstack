@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function Inputs({addTask}) {
+export default function Inputs({addTask}: {addTask: (task: string, assignee: string) => void}) {
 
   const [task,setTask] = useState('')
   const [assignee,setAssignee] = useState('')

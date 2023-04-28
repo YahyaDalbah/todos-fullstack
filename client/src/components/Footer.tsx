@@ -1,6 +1,7 @@
 import React from 'react'
+import { TODO } from '../models';
 
-export default function Footer({todos}) {
+export default function Footer({todos}: {todos: TODO[]}) {
 
   let completedTodos = 0
 

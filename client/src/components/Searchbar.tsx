@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 
-export default function Searchbar({setSearchValue, hideTodos, hidden}) {
+type Props = {
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>,
+  hideTodos: () => void, 
+  hidden: boolean
+}
+
+export default function Searchbar({setSearchValue, hideTodos, hidden}: Props) {
 
   return (
     <div className="search">

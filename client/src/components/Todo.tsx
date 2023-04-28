@@ -1,13 +1,22 @@
 import React, { useState } from 'react'
 
-export default function Todo({id, task, assignee, completed, completeTodo, deleteTodo}) {
+type Props = {
+  id: number,
+  task: string,
+  assignee: string,
+  completed: boolean,
+  completeTodo:(id: number) => void, 
+  deleteTodo: (id: number) => void
+}
+
+export default function Todo({id, task, assignee, completed, completeTodo, deleteTodo}: Props) {
 
   let className = completed ? 'task done' : 'task'
 
   return (
     <div className={className}>
       <div>
-        <input type="checkbox" onChange={e => {
+        <input type="checkbox" onChange={() => {
           completeTodo(id)
         }} />
         <label htmlFor="">complete</label>
